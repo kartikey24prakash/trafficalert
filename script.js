@@ -157,12 +157,14 @@ function reportUserAlert() {
 
         let alertData = { type, latitude: lat, longitude: lon, timestamp: Date.now() };
 
-        // Send alert to backend
-        fetch("http://localhost:3000/alerts", {
+        const backendURL = "https://your-backend.onrender.com"; // Your Render backend URL
+        fetch(`${backendURL}/alerts`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(alertData)
         })
+
+
         .then(response => {
             if (!response.ok) throw new Error("Failed to report alert");
             return response.json();
