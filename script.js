@@ -1,4 +1,4 @@
-const API_URL = "https://your-backend.onrender.com/alerts"; // ✅ Replace with actual Render URL
+const API_URL = "https://https://trafficalert.onrender.com/alerts"; // ✅ Replace with actual Render URL
 
 // Fetch alerts from backend and display them on the map
 fetch(API_URL)
@@ -155,7 +155,7 @@ function reportUserAlert() {
 
         let alertData = { type, latitude: lat, longitude: lon, timestamp: Date.now() };
 
-        const backendURL = "https://your-backend.onrender.com"; // Your Render backend URL
+        const backendURL = "https://https://trafficalert.onrender.com"; // Your Render backend URL
         fetch(`${backendURL}/alerts`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
