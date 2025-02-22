@@ -8,7 +8,7 @@ body {
 
 #main-container {
     display: flex;  /* Use flexbox to layout sidebar and map */
-    height: 100%;
+    height: 100vh;
 }
 
 /* Sidebar Styling */
@@ -22,6 +22,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+#sidebar {
+    overflow-y: auto;
+    max-height: 100vh;
 }
 
 /* Ensure alert info stays inside sidebar */
@@ -46,11 +50,6 @@ body {
     color: #555;
     list-style-type: none;
 }
-
-
-
-
-
 h2, h3 {
     margin-bottom: 20px;
     color: #333;
@@ -71,6 +70,13 @@ input, select, textarea {
 input:focus, select:focus, textarea:focus {
     border-color: #007bff;
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+/* Mobile input fields */
+@media (max-width: 768px) {
+    input, select, textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
 }
 
 /* Button Styling */
@@ -100,6 +106,30 @@ button:hover {
     width: 100%;
     height: 100%;
     border-radius: 10px;
+}
+
+
+/* 📱 Mobile Optimization */
+@media (max-width: 768px) {
+    #main-container {
+        flex-direction: column;  /* Stack sidebar and map */
+    }
+
+    #sidebar {
+        width: 100%;  /* Full width */
+        height: auto;  /* Auto height */
+        padding: 10px;
+    }
+
+    #map-container {
+        width: 100%;
+        height: 70vh; /* Reduce map height on small screens */
+    }
+
+    button {
+        font-size: 14px; /* Adjust button size */
+        padding: 10px;
+    }
 }
 
 /* AutoComplete List Styling */
