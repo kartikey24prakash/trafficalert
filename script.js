@@ -1,7 +1,4 @@
-const API_URL = "http://localhost:3000/alerts";
-
-
-
+const API_URL = "https://your-backend.onrender.com/alerts"; // ✅ Replace with actual Render URL
 
 // Fetch alerts from backend and display them on the map
 fetch(API_URL)
