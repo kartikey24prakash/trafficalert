@@ -1,19 +1,18 @@
 const express = require("express");
-const fs = require("fs");
 const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000; // ✅ Fix for Render
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "*" })); // ✅ Allow all origins (fix CORS error)
 
-// Serve static frontend files
+// Serve static frontend files (if needed)
 app.use(express.static(path.join(__dirname, "public")));
 
-// Load alerts from JSON
-let alerts = require("./alerts.json");
+// Store alerts in memory (Fix Render storage issue)
+let alerts = [];
 
 // Function to remove old alerts based on type
 function cleanOldAlerts() {
@@ -25,27 +24,25 @@ function cleanOldAlerts() {
         "Roadblock": 24 * 60 * 60 * 1000 // 24 hours
     };
 
-    // Filter out expired alerts
     alerts = alerts.filter(alert => {
         const maxAge = EXPIRATION_TIMES[alert.type] || 24 * 60 * 60 * 1000; // Default 24h
         return now - alert.timestamp < maxAge;
     });
 
-    // Save updated alerts back to alerts.json
-    fs.writeFileSync("./alerts.json", JSON.stringify(alerts, null, 2));
+    console.log(`✅ Cleaned old alerts. Remaining: ${alerts.length}`);
 }
 
 // Run clean-up every 5 minutes
 setInterval(cleanOldAlerts, 5 * 60 * 1000);
 
-// Serve frontend index.html
+// Serve frontend index.html (if needed)
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Get all alerts
 app.get("/alerts", (req, res) => {
-    cleanOldAlerts(); // Clean old alerts before sending
+    cleanOldAlerts();
     res.json(alerts);
 });
 
@@ -59,16 +56,10 @@ app.post("/alerts", (req, res) => {
     };
 
     alerts.push(newAlert);
-
-    fs.writeFile("./alerts.json", JSON.stringify(alerts, null, 2), (err) => {
-        if (err) {
-            console.error("Error saving alert:", err);
-            res.status(500).send("Error saving alert.");
-        } else {
-            res.status(201).json(newAlert);
-        }
-    });
+    console.log(`🚨 New Alert Added: ${newAlert.type} at (${newAlert.latitude}, ${newAlert.longitude})`);
+    
+    res.status(201).json(newAlert);
 });
 
 // Start server
-app.listen(PORT, () => console.log(`✅ Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
