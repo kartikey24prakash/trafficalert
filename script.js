@@ -1,4 +1,4 @@
-const API_URL = "https://https://trafficalert.onrender.com/alerts"; // ✅ Replace with actual Render URL
+const API_URL = "https://trafficalert.onrender.com/alerts"; // ✅ Replace with actual Render URL
 
 // Fetch alerts from backend and display them on the map
 fetch(API_URL)
