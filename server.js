@@ -37,7 +37,7 @@ setInterval(cleanOldAlerts, 5 * 60 * 1000);
 
 // Serve frontend index.html (if needed)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "index.html"));
 });
 
 // Get all alerts
