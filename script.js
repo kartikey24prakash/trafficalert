@@ -155,7 +155,7 @@ function reportUserAlert() {
 
         let alertData = { type, latitude: lat, longitude: lon, timestamp: Date.now() };
 
-        const backendURL = "https://https://trafficalert.onrender.com"; // Your Render backend URL
+        const backendURL = "https://trafficalert.onrender.com"; // Your Render backend URL
         fetch(`${backendURL}/alerts`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
