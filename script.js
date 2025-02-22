@@ -60,6 +60,7 @@ function setUserLocation() {
 // Call the function to set the user's location as the default map view
 setUserLocation();
 
+let userMarker = null; 
 // Function to track and update user's location in real-time
 function trackUserLocation() {
     if (navigator.geolocation) {
