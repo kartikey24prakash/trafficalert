@@ -16,7 +16,29 @@
 
         <!-- Sidebar Section -->
         <div id="sidebar">
+             <div id="alert-info">
+                <h3>Alert Expiry Time</h3>
+                <ul>
+                    <li><strong>🚦 Traffic Jam:</strong> 10 minutes</li>
+                    <li><strong>⚠️ Accident:</strong> 1 hour</li>
+                    <li><strong>⛔ Roadblock:</strong> 24 hours</li>
+                </ul>
+            </div>
             
+            <h3>Report a Traffic Alert</h3>
+            <label for="alert-type">Alert Type:</label>
+            <select id="alert-type">
+                <option value="Traffic Jam">Traffic Jam</option>
+                <option value="Accident">Accident</option>
+                <option value="Roadblock">Roadblock</option>
+            </select>
+
+
+            <label for="alert-location">Alert Location:</label>
+            <input id="alert-location" type="text" disabled placeholder="Click on the map to select location">
+
+
+            <button onclick="reportUserAlert()">Report Alert</button>
             <h2>Find the Shortest Route</h2>
             <input id="start" type="text" placeholder="Enter starting location">
             <input id="end" type="text" placeholder="Enter destination">
