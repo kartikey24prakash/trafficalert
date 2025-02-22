@@ -1,21 +1,26 @@
 const express = require("express");
 const cors = require("cors");
-app.use(cors({ origin: "*" }));
 const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000; // ✅ Fix for Render
 
-app.use(express.json());
-app.use(cors({ origin: "*" })); // ✅ Allow all origins (fix CORS error)
+// ✅ Fix CORS (Only one instance)
+app.use(cors({
+    origin: "*",  // ✅ Allows all frontend requests
+    methods: "GET,POST",
+    allowedHeaders: "Content-Type"
+}));
 
-// Serve static frontend files (if needed)
+app.use(express.json()); // ✅ Fix middleware order
+
+// ✅ Serve static frontend files (if `index.html` is in `public/` folder)
 app.use(express.static(path.join(__dirname, "public")));
 
-// Store alerts in memory (Fix Render storage issue)
+// ✅ Store alerts in memory (Fix Render storage issue)
 let alerts = [];
 
-// Function to remove old alerts based on type
+// ✅ Function to remove old alerts based on type
 function cleanOldAlerts() {
     const now = Date.now();
     
@@ -33,21 +38,21 @@ function cleanOldAlerts() {
     console.log(`✅ Cleaned old alerts. Remaining: ${alerts.length}`);
 }
 
-// Run clean-up every 5 minutes
+// ✅ Run clean-up every 5 minutes
 setInterval(cleanOldAlerts, 5 * 60 * 1000);
 
-// Serve frontend index.html (if needed)
+// ✅ Serve frontend index.html (if `index.html` is in `public/`)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-// Get all alerts
+// ✅ Get all alerts
 app.get("/alerts", (req, res) => {
     cleanOldAlerts();
     res.json(alerts);
 });
 
-// Add a new alert
+// ✅ Add a new alert
 app.post("/alerts", (req, res) => {
     const newAlert = {
         type: req.body.type,
@@ -62,5 +67,5 @@ app.post("/alerts", (req, res) => {
     res.status(201).json(newAlert);
 });
 
-// Start server
+// ✅ Start server
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
