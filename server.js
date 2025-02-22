@@ -15,7 +15,7 @@ app.use(cors({
 app.use(express.json()); // ✅ Fix middleware order
 
 // ✅ Serve static frontend files (if `index.html` is in `public/` folder)
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname)));
 
 // ✅ Store alerts in memory (Fix Render storage issue)
 let alerts = [];
@@ -43,7 +43,7 @@ setInterval(cleanOldAlerts, 5 * 60 * 1000);
 
 // ✅ Serve frontend index.html (if `index.html` is in `public/`)
 app.get("/", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname,"index.html"));
 });
 
 // ✅ Get all alerts
