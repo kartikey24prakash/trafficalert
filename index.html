@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Alert System - Live Reports</title>
+
+    <title>Traffic Map (OpenStreetMap)</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+</head>
+<body>
+    <div id="main-container">
+        
+
+        <!-- Sidebar Section -->
+        <div id="sidebar">
+            
+            <h2>Find the Shortest Route</h2>
+            <input id="start" type="text" placeholder="Enter starting location">
+            <input id="end" type="text" placeholder="Enter destination">
+            <button onclick="calculateRoute()">Find Route</button>
+            
+            <div id="alert-info">
+                <h3>Alert Expiry Time</h3>
+                <ul>
+                    <li><strong>🚦 Traffic Jam:</strong> 10 minutes</li>
+                    <li><strong>⚠️ Accident:</strong> 1 hour</li>
+                    <li><strong>⛔ Roadblock:</strong> 24 hours</li>
+                </ul>
+            </div>
+            
+            <h3>Report a Traffic Alert</h3>
+            <label for="alert-type">Alert Type:</label>
+            <select id="alert-type">
+                <option value="Traffic Jam">Traffic Jam</option>
+                <option value="Accident">Accident</option>
+                <option value="Roadblock">Roadblock</option>
+            </select>
+
+
+            <label for="alert-location">Alert Location:</label>
+            <input id="alert-location" type="text" disabled placeholder="Click on the map to select location">
+
+
+            <button onclick="reportUserAlert()">Report Alert</button>
+            
+        </div>
+        <!-- Map Section -->
+        <div id="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
